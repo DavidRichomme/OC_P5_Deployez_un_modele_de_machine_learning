@@ -1,5 +1,5 @@
 [project]
-name = "projet-4"
+name = "projet-5"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -17,7 +17,7 @@ dependencies = [
 ]
 
 [project.scripts]
-projet-4 = "projet_4:main"
+projet-5 = "projet_5:main"
 
 [build-system]
 requires = ["uv_build>=0.13.5,<0.14.0"]
