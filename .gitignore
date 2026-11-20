@@ -7,10 +7,10 @@ wheels/
 *.egg-info
 
 
-# Project documentation
-PrésentationTechNova.pptx
-
-
 # Virtual environments
 .venv
 .DS_Store
+
+# Secrets
+.env
+Documentations_Projet/
