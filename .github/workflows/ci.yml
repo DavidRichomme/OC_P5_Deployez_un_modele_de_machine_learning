@@ -24,4 +24,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: docker build -t api-projet-5-oc .
+      - run: docker run -d -p 8000:8000 --name projet_5_oc_api api-projet-5-oc
+      - run: curl --fail http://localhost:8000/health --retry 5 --retry-connrefused
 
