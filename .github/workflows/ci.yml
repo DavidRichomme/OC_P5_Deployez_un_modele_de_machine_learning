@@ -1,0 +1,19 @@
+# Nom du workflow
+name: CI
+
+# Déclencheurs 
+on:
+  pull_request:
+    branches: [develop]
+  push:
+    branches: [develop, main]
+
+# Jobs (pour l'instant il n'y a que test)
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --frozen
+      - run: uv run python -c "import src.main"
