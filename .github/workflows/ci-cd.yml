@@ -42,3 +42,21 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - run: docker build -t ghcr.io/davidrichomme/api-projet-5-oc:dev .
       - run: docker push ghcr.io/davidrichomme/api-projet-5-oc:dev
+
+  deploy-prod:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: Prod
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - run: docker build -t ghcr.io/davidrichomme/api-projet-5-oc:prod .
+      - run: docker push ghcr.io/davidrichomme/api-projet-5-oc:prod
