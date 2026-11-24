@@ -10,7 +10,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler
 
 
-DATA_PATH = Path("Data/Processed/dataset_join_ready_to_ml.csv")
+DATA_PATH = Path("Data/Processed/dataset_join_ready_to_api.csv")
 MODEL_PATH = Path("Models/model_reg_log.joblib")
 TARGET = "a_quitte_l_entreprise"
 PASSTHROUGH = ["FE1_tranche_salariale", "FE3_tranche_age"]
@@ -20,7 +20,10 @@ BEST_PARAMS = {'C': 0.1, 'class_weight': 'balanced'}
 
 def main():
     df = pd.read_csv(DATA_PATH, index_col=0)
+    print(df.columns.tolist())
+    print(df.index[:3])
     X = df.drop(columns=TARGET)
+    print(X.shape)
     y = df[TARGET]
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42, stratify=y
