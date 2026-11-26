@@ -1,18 +1,42 @@
 from typing import Annotated
 from pydantic import BaseModel, ConfigDict, Field
 
+EXEMPLE = {
+  "genre": 0,
+  "poste": 0.1986,
+  "nombre_experiences_precedentes": 1.0986122886681098,
+  "annee_experience_totale": 1.9459101490553132,
+  "annees_dans_l_entreprise": 1.0986122886681098,
+  "annees_dans_le_poste_actuel": 0,
+  "distance_domicile_travail": 1,
+  "niveau_education": 3,
+  "frequence_deplacement": 2,
+  "annees_depuis_la_derniere_promotion": 1.0986122886681098,
+  "note_evaluation_precedente": 3,
+  "note_evaluation_actuelle": 1.3862943611198906,
+  "heure_supplementaires": 1,
+  "augmentation_salaire_precedente": 16,
+  "fe1_tranche_salariale": 1,
+  "fe2_satisfaction_globale": 9,
+  "fe3_tranche_age": 2,
+  "statut_marital_divorce": 0,
+  "statut_marital_marie": 1,
+  "departement_consulting": 1,
+  "departement_ressources_humaines": 0
+}
+
 Binaire = Annotated[int, Field(ge=0, le=1, description="1 = oui, 0 = non")]
 Log1p = Annotated[
     float,
-    Field(ge=0, le=4.5, description="Valeur déjà transformée en log1p"),
+    Field(ge=0, le=4.5, description="Valeur déjà transformée : ln(1 + x). Exemple : 3 ans s'écrit 1.386"),
 ]
 
 
 class PredictionInput(BaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(json_schema_extra={"examples": [EXEMPLE]}, extra="forbid")
 
     genre: Binaire
-    poste: float = Field(ge=0, le=0.3, description="Poste encodé en décimal (valeurs observées : 0.035 à 0.222)")
+    poste: float = Field(ge=0, le=0.3, description="Poste encodé en décimal (voir le README pour la correspondance)")
     nombre_experiences_precedentes: Log1p
     annee_experience_totale: Log1p
     annees_dans_l_entreprise: Log1p
