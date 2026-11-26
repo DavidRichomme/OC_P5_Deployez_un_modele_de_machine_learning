@@ -1,6 +1,8 @@
 from src.db.models import Input, Prediction
 
 
+
+
 def log_interaction(session, features: dict, probabilite: float, classe_predite: int):
     input_row = Input(**features)
     prediction = Prediction(
@@ -12,3 +14,11 @@ def log_interaction(session, features: dict, probabilite: float, classe_predite:
     session.commit()
     session.refresh(prediction)
     return prediction
+
+
+def get_prediction_list(session, limit: int = 100):
+    return session.query(Prediction).order_by(Prediction.id).limit(limit).all()
+
+
+def get_prediction_by_id(session, prediction_id: int):
+    return session.get(Prediction, prediction_id)
