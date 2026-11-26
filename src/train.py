@@ -13,7 +13,7 @@ from sklearn.preprocessing import MinMaxScaler
 DATA_PATH = Path("Data/Processed/dataset_join_ready_to_api.csv")
 MODEL_PATH = Path("Models/model_reg_log.joblib")
 TARGET = "a_quitte_l_entreprise"
-PASSTHROUGH = ["FE1_tranche_salariale", "FE3_tranche_age"]
+PASSTHROUGH = ["fe1_tranche_salariale", "fe3_tranche_age"]
 SEUIL = 0.3
 BEST_PARAMS = {'C': 0.1, 'class_weight': 'balanced'}
 
