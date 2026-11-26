@@ -12,6 +12,13 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      API_KEY: jp8BHO9zV2GVvgtXSRm5ndxgf2jSNf35CSlq7Kpk-hU
+      POSTGRES_USER: david_dev
+      POSTGRES_PASSWORD: 9CFfARX9MKz
+      POSTGRES_DB: futurisys_dev
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: "5433"
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
