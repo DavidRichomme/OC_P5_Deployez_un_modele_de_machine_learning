@@ -1,3 +1,6 @@
+from src.db.models import Prediction, Input
+
+
 def test_health(client):
     response = client.get("/health")
     assert response.status_code == 200
@@ -67,3 +70,10 @@ def test_predictions_liste_apres_post(client, auth_headers, payload_valide):
     response_get = client.get("/predictions", headers=auth_headers)
     assert response_get.status_code == 200
     assert len(response_get.json()) == 1
+
+
+def test_predict_enregistre_en_base(client, auth_headers, db_session, payload_valide):
+    response_post = client.post("/predict", json=payload_valide, headers=auth_headers)
+    assert response_post.status_code == 200
+    assert db_session.query(Prediction).count() == 1
+    assert db_session.query(Input).count() == 1
