@@ -23,7 +23,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
       - run: uv sync --frozen
-      - run: uv run python -c "import src.main"
+      - name: Tests api et services
+        run: uv run pytest --cov=src
 
   build:
     needs: test
