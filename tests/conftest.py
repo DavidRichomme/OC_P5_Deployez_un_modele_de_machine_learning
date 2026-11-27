@@ -14,10 +14,12 @@ os.environ.setdefault("POSTGRES_PORT", "5433")
 from src.dependencies import get_db
 from src.main import app
 from src.db.database import  Base
+from src.schemas import EXEMPLE
 import pytest
 
 engine = create_engine("sqlite://", connect_args={"check_same_thread": False}, poolclass=StaticPool)
 SessionTest = sessionmaker(bind=engine)
+
 
 @pytest.fixture
 def db_session():
@@ -35,4 +37,16 @@ def client(db_session):
     app.dependency_overrides[get_db] = override
     yield TestClient(app)
     app.dependency_overrides.clear()
+
+
+@pytest.fixture
+def auth_headers():
+    return {"X-API-Key": os.environ["API_KEY"]}
+
+
+
+@pytest.fixture
+def payload_valide():
+    return dict(EXEMPLE)
+
 
