@@ -50,3 +50,20 @@ def test_prediction_introuvable(client, auth_headers):
     response = client.get("/predictions/999999", headers=auth_headers)
     assert response.status_code == 404
     assert response.json()["detail"] == "Prédiction introuvable"
+
+
+def test_prediction_detail(client , auth_headers, payload_valide):
+    response_post = client.post("/predict", json=payload_valide, headers=auth_headers)
+    assert response_post.status_code == 200
+    prediction_id_post = response_post.json()["id"]
+    response_get = client.get(f"/predictions/{prediction_id_post}", headers=auth_headers)
+    assert response_get.status_code == 200
+    assert response_get.json()["probabilite"] == response_post.json()["probabilite"]
+
+
+def test_predictions_liste_apres_post(client, auth_headers, payload_valide):
+    response_post = client.post("/predict", json=payload_valide, headers=auth_headers)
+    assert response_post.status_code == 200
+    response_get = client.get("/predictions", headers=auth_headers)
+    assert response_get.status_code == 200
+    assert len(response_get.json()) == 1
